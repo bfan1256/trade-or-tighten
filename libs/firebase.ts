@@ -22,7 +22,9 @@ function createFirebaseApp(config: FirebaseOptions) {
     }
 }
 
+
 const app = createFirebaseApp(config);
+console.log('Firebase Initialized...');
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
 const realtimeDB = getDatabase(app);
