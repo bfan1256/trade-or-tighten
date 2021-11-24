@@ -28,6 +28,9 @@
       "@/services/*": [
         "services/*"
       ],
+      "@/contexts/*": [
+        "contexts/*"
+      ],
       "@/public/*": [
         "public/*"
       ],
