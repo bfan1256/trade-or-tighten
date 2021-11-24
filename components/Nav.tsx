@@ -22,7 +22,7 @@ function classNames(...classes: any[]) {
 
 export default function Nav() {
   return (
-    <Disclosure as="nav" className="bg-gray-800">
+    <Disclosure as="nav">
       {({ open }) => (
         <>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -57,7 +57,7 @@ export default function Nav() {
                       key={item.name}
                       href={item.href}
                       className={classNames(
-                        item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                        item.current ? 'bg-blue-100 text-blue-900' : 'text-blue-900 hover:bg-blue-100',
                         'px-3 py-2 rounded-md text-sm font-medium'
                       )}
                       aria-current={item.current ? 'page' : undefined}
@@ -74,7 +74,7 @@ export default function Nav() {
                     className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
                   >
                     <PlusSmIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-                    <span>New Job</span>
+                    <span>Join Room</span>
                   </button>
                 </div>
               </div>
