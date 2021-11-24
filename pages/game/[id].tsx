@@ -168,20 +168,21 @@ const GameRoom = () => {
       </div>
       <hr className="max-w-7xl mx-auto my-20" />
       <div className="grid gap-8 grid-cols-3 max-w-7xl mx-auto">
-        {playerList}
+        {game.players
+          ? Object.values(game.players)
+              .sort(sortById)
+              .map((player: Player) => {
+                return (
+                  <IndividualCard
+                    key={player.id}
+                    side={player.side}
+                    active={player.id === game.activeUser}
+                    player={player}
+                  />
+                );
+              })
+          : null}
       </div>
-      {Object.values(game.players)
-        .sort(sortById)
-        .map((player: Player) => {
-          return (
-            <IndividualCard
-              key={player.id}
-              side={player.side}
-              active={player.id === game.activeUser}
-              player={player}
-            />
-          );
-        })}
     </div>
   );
 };
