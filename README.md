@@ -1,6 +1,6 @@
 # Trade or Tighten
 
-A website that allows you to play trade or tighten in real-time w/ friends.
+A web app that allows you to play trade or tighten in real-time w/ friends 📈
 
 ## Getting Started from Source
 
