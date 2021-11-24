@@ -15,6 +15,7 @@ import { onValue } from "firebase/database";
 import { Player } from "@/types/player";
 import AddName from "@/components/modals/AddName";
 import { usePlayer } from "@/contexts/player";
+import SelectMarketPrice from "@/components/modals/SelectMarketPrice";
 
 function sortById(a: Player, b: Player) {
   if (a.id > b.id) {
@@ -30,10 +31,13 @@ const GameRoom = () => {
   const { id } = router.query;
   const [openAddNameModal, setModal] = useState(false);
   const [added, setAdded] = useState(false);
+  const [playerList, setPlayerlist] = useState<Player>();
   const [game, setGame] = useState<Game>({
     answer: 0,
     question: "",
     currSpread: 100,
+    currSpreadName: "",
+    currSpreadHolder: "",
     activeUser: "",
     id: "",
     players: [],
@@ -64,6 +68,15 @@ const GameRoom = () => {
     [game, playerObj]
   );
 
+  const setMarketPrice = useCallback(
+    (price) => {
+      return updateGame(game.id, {
+        marketPrice: price,
+      });
+    },
+    [game]
+  );
+
   let tightening = null;
   if (game && playerObj) {
     if (game.phase == "tighten" && game.activeUser == playerObj.id) {
@@ -72,6 +85,14 @@ const GameRoom = () => {
       tightening = <BottomActions update={handleAction} tightening={false} />;
     }
   }
+
+  useEffect(() => {
+    if (game.activeUser === game.currSpreadHolder && game.phase !== "buying") {
+      updateGame(game.id, { phase: "buying" });
+    } else if (game.phase !== "tighten") {
+      updateGame(game.id, { phase: "tighten" });
+    }
+  }, [game]);
 
   useEffect(() => {
     if (!player) {
@@ -86,6 +107,7 @@ const GameRoom = () => {
           active: false,
           isMarketMaker: false,
           score: 0,
+          side: "na",
         });
         setAdded(true);
       }
@@ -118,6 +140,14 @@ const GameRoom = () => {
 
   return (
     <div className="bg-blue-50 min-h-screen pb-56">
+      <SelectMarketPrice
+        update={setMarketPrice}
+        open={
+          playerObj?.id === game.currSpreadHolder &&
+          game.phase === "buying" &&
+          game.marketPrice < 0
+        }
+      />
       <AddName open={openAddNameModal} />
       <Nav />
       <div className="pt-12 max-w-7xl mx-auto">
@@ -138,19 +168,20 @@ const GameRoom = () => {
       </div>
       <hr className="max-w-7xl mx-auto my-20" />
       <div className="grid gap-8 grid-cols-3 max-w-7xl mx-auto">
-        {Object.values(game.players)
-          .sort(sortById)
-          .map((player: Player) => {
-            return (
-              <IndividualCard
-                key={player.id}
-                active={player.id === game.activeUser}
-                player={player}
-              />
-            );
-          })}
+        {playerList}
       </div>
-      {tightening}
+      {Object.values(game.players)
+        .sort(sortById)
+        .map((player: Player) => {
+          return (
+            <IndividualCard
+              key={player.id}
+              side={player.side}
+              active={player.id === game.activeUser}
+              player={player}
+            />
+          );
+        })}
     </div>
   );
 };

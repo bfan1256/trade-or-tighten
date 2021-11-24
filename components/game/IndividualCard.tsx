@@ -1,11 +1,16 @@
 import { Player } from "@/types/player";
 
-const IndividualCard = (props: { active: boolean; player: Player }) => {
+const IndividualCard = (props: {
+  active: boolean;
+  player: Player;
+  side: string;
+}) => {
   return (
     <div
-      className={`shadow-md p-8 rounded-xl bg-white ${
-        props.active ? "ring-4 ring-blue-300" : ""
-      }`}
+      className={`shadow-md p-8 rounded-xl bg-white 
+        ${props.active ? "ring-4 ring-blue-300" : ""}
+        ${!props.active && props.side === "buy" ? "ring-4 ring-green-300" : ""}
+        ${!props.active && props.side === "sell" ? "ring-4 ring-red-300" : ""}`}
     >
       <div className="flex items-center justify-between">
         <div className="flex space-x-4 items-center">

@@ -5,19 +5,14 @@ import { CheckIcon, IdentificationIcon } from "@heroicons/react/outline";
 import { usePlayer } from "@/contexts/player";
 import { uuid } from "@/libs/uuid";
 
-export default function AddName(props: any) {
-  const [name, setName] = useState("");
-  const { setPlayer, setId } = usePlayer();
+export default function SelectMarketPrice(props: any) {
+  const [price, setPrice] = useState("");
+
   const submit = useCallback(() => {
-    if (name.length > 0) {
-      const id = uuid();
-      setId(id);
-      setPlayer({
-        name,
-        id,
-      });
+    if (price.length > 0) {
+      props.update(parseInt(price));
     }
-  }, [name, setId, setPlayer]);
+  }, [price]);
 
   return (
     <Transition.Root show={props.open} as={Fragment}>
@@ -65,22 +60,22 @@ export default function AddName(props: any) {
                     as="h3"
                     className="text-2xl leading-6 font-medium text-gray-900"
                   >
-                    What's your name?
+                    What value would you like to make your market on?
                   </Dialog.Title>
                   <div className="mt-2 mb-4">
                     <p className="text-sm text-gray-500">
-                      Add your full name so other people can recognize you while
-                      they play.
+                      Your value should be close to what you believe the true
+                      number actually is.
                     </p>
                   </div>
                   <input
                     type="text"
-                    name="name"
-                    onChange={(e) => setName(e.target.value)}
-                    value={name}
-                    id="name"
+                    name="price"
+                    onChange={(e) => setPrice(e.target.value)}
+                    value={price}
+                    id="price"
                     className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                    placeholder="e.g. John Doe"
+                    placeholder="e.g. 5234"
                   />
                 </div>
               </div>
@@ -90,7 +85,7 @@ export default function AddName(props: any) {
                   className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
                   onClick={submit}
                 >
-                  Continue to game
+                  Make the Market
                 </button>
               </div>
             </div>

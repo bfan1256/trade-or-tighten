@@ -5,6 +5,7 @@ export interface Game {
     activeUser: string;
     currSpread: number;
     currSpreadName: string;
+    currSpreadHolder: string;
     players: Object,
     id: string;
 }
