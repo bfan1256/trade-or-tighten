@@ -31,7 +31,6 @@ const GameRoom = () => {
   const { id } = router.query;
   const [openAddNameModal, setModal] = useState(false);
   const [added, setAdded] = useState(false);
-  const [playerList, setPlayerlist] = useState<Player>();
   const [game, setGame] = useState<Game>({
     answer: 0,
     question: "",
@@ -42,6 +41,7 @@ const GameRoom = () => {
     id: "",
     players: [],
     phase: "tighten",
+    marketPrice: -9999,
   });
   const [playerObj, setPlayerObj] = useState<Player>();
   const { player } = usePlayer();
@@ -79,7 +79,7 @@ const GameRoom = () => {
 
   let tightening = null;
   if (game && playerObj) {
-    if (game.phase == "tighten" && game.activeUser == playerObj.id) {
+    if (game.phase === "tighten" && game.activeUser === playerObj.id) {
       tightening = <BottomActions update={handleAction} tightening={true} />;
     } else if (game.phase != "tighten") {
       tightening = <BottomActions update={handleAction} tightening={false} />;
@@ -89,8 +89,6 @@ const GameRoom = () => {
   useEffect(() => {
     if (game.activeUser === game.currSpreadHolder && game.phase !== "buying") {
       updateGame(game.id, { phase: "buying" });
-    } else if (game.phase !== "tighten") {
-      updateGame(game.id, { phase: "tighten" });
     }
   }, [game]);
 
@@ -132,7 +130,18 @@ const GameRoom = () => {
         // Add current player to the game if not already joined
       } else {
         // Create Game Logic
-        // createGame()
+        // createGame(game_id, {
+        //   answer: 0,
+        //   question: "",
+        //   currSpread: 100,
+        //   currSpreadName: "",
+        //   currSpreadHolder: "",
+        //   activeUser: "",
+        //   id: "",
+        //   players: [],
+        //   phase: "tighten",
+        //   marketPrice: -9999,
+        // });
       }
     });
     return () => unsubscribe();

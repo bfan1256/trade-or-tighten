@@ -8,4 +8,5 @@ export interface Game {
     currSpreadHolder: string;
     players: Object,
     id: string;
+    marketPrice: number,
 }

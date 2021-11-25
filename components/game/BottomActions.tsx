@@ -87,10 +87,10 @@ const BottomActions = (props: any) => {
     buttons = (
       <div className="max-w-lg px-4 py-4 mx-auto shadow-2xl bg-white rounded-lg flex items-center justify-between">
         <button className="mt-3 flex-1 w-full text-center px-6 py-3 border border-transparent text-base font-bold rounded-md text-white bg-green-400 shadow-sm hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:flex-shrink-0 sm:inline-flex sm:items-center sm:w-auto">
-          Buy
+          Buy @ {props.price + (props.price * props.spread) / 2}
         </button>
         <button className="mt-3 flex-1 w-full text-center px-6 py-3 border border-transparent text-base font-bold rounded-md text-white bg-red-400 shadow-sm hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:flex-shrink-0 sm:inline-flex sm:items-center sm:w-auto">
-          Sell
+          Sell @ {props.price - (props.price * props.spread) / 2}
         </button>
       </div>
     );
